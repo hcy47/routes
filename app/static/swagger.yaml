@@ -1,0 +1,64 @@
+swagger: '2.0'
+info:
+  title:"Mechanic shop Management API"
+  description: "Used to Manage Mechanic Shop"
+  version: '0.0.1'
+
+host: "127.0.0.1:5000"
+schemes:
+  - "http"
+consumes:
+  - "Application/json" # my application rtecieves json data
+produces:
+  - "Application/json" # and produces json data
+
+
+
+
+paths: #information about our routes
+
+  /mechanic/login: # End points starts the path
+    post: # request type (post, get, put, delete)
+      tags:
+        - Mechanics # adds this route to a category
+      summary: "Login endpoint (generates a token)" # at a glance information about 
+      description: "Validates mechanic credentials (email and pasword), and produces "
+      parameters: # info abot data being sent,( dont forget the 's' in parameters)
+        - in: "body" # where will this come from
+          name: "body"
+          description: "Login Credentials" # what are you sending
+          required: true
+          schema:
+            $ref: "#/definitions/LoginCredentials"
+      responses:
+        200:
+          description: "Login Succesful"
+          schema:
+            $ref: "#/definitions/LoginResponse"
+          examples:
+            application/json:
+              message: 'Welcome Mechanic'
+              token: '----------'
+
+
+definitions: # information about the shape of input and output json
+
+  LoginCredentials: # Input data required for login route
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+
+    required:
+      - email
+      - password
+
+  LoginResponse: # Response from /login ENDpoint
+    type: object
+    properties:
+      message:
+        type: string
+      token:
+        type: string
