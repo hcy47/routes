@@ -3,11 +3,13 @@ from .schemas import customer_schema, customers_schema
 from flask import request, jsonify
 from marshmallow import ValidationError
 from app.models import Customers, db
+from app.extensions import limiter, cache
 
 
 
 #create a customer route
-@customers_bp.route('/', methods=['POST']) # the routes serve as the trigger  for ythe function below
+@customers_bp.route('/', methods=['POST'])
+@limiter.limit('200 per day') # the routes serve as the trigger  for ythe function below
 def create_customer():
   try:
     data = customer_schema.load(request.json) # accesing the body of the request
@@ -26,21 +28,24 @@ def create_customer():
 
 #read customers
 @customers_bp.route('', methods=['GET']) # end poijnt to get customer
+@limiter.limit('200 per day')
+@cache.cached(timeout=100)
 def read_customers():
   customers = db.session.query(Customers).all()
   return customers_schema.jsonify(customers), 200 # ssucces 
 
 
 
-# #Read Indivudual Customer - using dynamic endpoint
-# @customers_bp.route('<int:customer_id>', methods=['GET'])
-# def read_customer(customer_id):
-#   customer = db.session.get(Customers, customer_id)
-#   return customer_schema.jsonify(customer), 200
+#Read Indivudual Customer - using dynamic endpoint
+@customers_bp.route('<int:customer_id>', methods=['GET'])
+def read_customer(customer_id):
+  customer = db.session.get(Customers, customer_id)
+  return customer_schema.jsonify(customer), 200
 
 
 #delete A Customer
 @customers_bp.route('<int:customer_id>', methods=['DELETE'])
+@limiter.limit('300 per day')
 def delete_customer(customer_id):
   customer = db.session.get(Customers, customer_id)
   db.session.delete(customer)
@@ -51,6 +56,7 @@ def delete_customer(customer_id):
 
 #updating a customer
 @customers_bp.route('<int:customer_id>', methods=['PUT'])
+@limiter.limit('200 per day')
 def update_customer(customer_id):
   customer = db.session.get(Customers, customer_id) # query for our customer to update
   if not customer: # checking if i got a customer

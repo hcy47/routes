@@ -4,9 +4,12 @@ from flask import request, jsonify
 from marshmallow import ValidationError
 from app.models import Service_tickets, db, Mechanics
 from app.blueprints.mechanic.schemas import mechanics_schema
+from app.extensions import limiter
+
 
 
 @service_tickets_bp.route('', methods=['POST'])
+@limiter.limit('200 per day')
 def create_service_ticket():
   try:
     data = service_ticket_schema.load(request.json)
@@ -20,6 +23,7 @@ def create_service_ticket():
 
 
 @service_tickets_bp.route('<int:service_ticket_id>/assign-mechanic/<int:mechanic_id>', methods=['PUT'])
+@limiter.limit('200 per day')
 def assign_mechanic(service_ticket_id, mechanic_id):
   service_ticket = db.session.get(Service_tickets, service_ticket_id)
   mechanic = db.session.get(Mechanics, mechanic_id)
@@ -36,6 +40,7 @@ def assign_mechanic(service_ticket_id, mechanic_id):
 
 
 @service_tickets_bp.route('<int:service_ticket_id>/remove-mechanic/<int:mechanic_id>', methods=['PUT'])
+@limiter.limit('200 per day')
 def remove_mechanic(service_ticket_id, mechanic_id):
   service_ticket = db.session.get(Service_tickets, service_ticket_id)
   mechanic = db.session.get(Mechanics, mechanic_id)
@@ -59,6 +64,7 @@ def remove_mechanic(service_ticket_id, mechanic_id):
 
 # retrieve all tickets
 @service_tickets_bp.route('', methods=['GET'])
+@limiter.limit('200 per day')
 def retrive_all_tickets():
   service_tickets = db.session.query(Service_tickets).all()
   return service_tickets_schema.jsonify(service_tickets), 200
