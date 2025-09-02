@@ -45,7 +45,7 @@ def create_mechanic():
   return ('Adding New Mechanic')
 
 
-
+#read
 @mechanics_bp.route('', methods=['GET'])
 @limiter.limit('15 per hour')
 @cache.cached(timeout=60)
@@ -85,3 +85,28 @@ def delete_mechanic():
   db.session.delete(mechanic)
   db.session.commit()
   return jsonify({'message': f'Succesfully deleted{token_id}'}), 200
+
+
+@mechanics_bp.route("/most_ticket", methods=['GET'])
+def get_ticket_mechanics():
+  mechanics = db. session.query(Mechanics).all() #grabbing all mechanics
+
+  # sort mechanics based on how mani=y tickets they have been the part of
+  mechanics.sort(key=lambda mechanic: len(mechanic.service_tickets), reverse=True)
+
+  output = []
+  for mechanic in mechanics[:3]:
+    serviced_tickets = {
+      "mechanic": mechanic_schema.dump(mechanic), #translate the mechanic to json
+      "service_tickets": len(mechanic.service_tickets) #add the emount of the service tickets
+    }
+    output.append(serviced_tickets) # add this dict. to an output
+
+  return mechanics_schema.jsonify(mechanics[:3])
+
+
+
+
+
+
+  # lambda num1, num2: num1 + num2

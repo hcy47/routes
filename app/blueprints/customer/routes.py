@@ -18,7 +18,7 @@ def create_customer():
 
   new_customer = Customers(**data)
   db.session.add(new_customer)
-  db.sesion.commit()
+  db.session.commit()
   return customer_schema.jsonify(new_customer), 201 # status code, succesfull creation
 
   # data = request.json # getting my customer data
@@ -66,7 +66,7 @@ def update_customer(customer_id):
     customer_data = customer_schema.load(request.json) # validating updates
   except ValidationError as e:
     return jsonify({'message': e.messages}), 400
-  for key, value in customer_data.item(): # looping over atrributes and values from user data dictionary
+  for key, value in customer_data.item(): # looping over atrributes and values from customers data dictionary
     setattr(customer, key, value) # setting Object Attribute Value to replace
   db.session.commit()
   return customer_schema.jsonify(customer), 200

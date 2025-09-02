@@ -2,8 +2,9 @@ from app.blueprints.service_ticket import service_tickets_bp
 from .schemas import service_ticket_schema, service_tickets_schema
 from flask import request, jsonify
 from marshmallow import ValidationError
-from app.models import Service_tickets, db, Mechanics
+from app.models import Service_tickets, db, Mechanics, Inventory
 from app.blueprints.mechanic.schemas import mechanics_schema
+from app.blueprints.inventory.schemas import inventory_schema
 from app.extensions import limiter
 
 
@@ -39,6 +40,27 @@ def assign_mechanic(service_ticket_id, mechanic_id):
   return jsonify("This mechanic is already on the service_ticket"), 400
 
 
+# adding a single part
+@service_tickets_bp.route('<int:service_ticket_id>/add-inventory/<int:inventory_id>', methods=['PUT'])
+def add_inventory(service_ticket_id, inventory_id):
+  service_ticket = db.session.get(Service_tickets, service_ticket_id)
+  inventory = db.session.get(Inventory, inventory_id)
+
+
+  if inventory in service_ticket.inventorys:
+    service_ticket.inventorys.append(inventory)
+    db.session.commit()
+    return jsonify({
+      "message": f"Succesfully added {inventory.id} to service_tickets",
+      "service_tickets": service_ticket_schema.dump(service_ticket),
+      "inventorys": inventory_schema.dump(service_ticket.inventorys)
+    }), 200
+  
+  return jsonify(f" Part {inventory_id} is now in the Inventory ")
+
+
+
+
 @service_tickets_bp.route('<int:service_ticket_id>/remove-mechanic/<int:mechanic_id>', methods=['PUT'])
 @limiter.limit('200 per day')
 def remove_mechanic(service_ticket_id, mechanic_id):
@@ -68,3 +90,5 @@ def remove_mechanic(service_ticket_id, mechanic_id):
 def retrive_all_tickets():
   service_tickets = db.session.query(Service_tickets).all()
   return service_tickets_schema.jsonify(service_tickets), 200
+
+

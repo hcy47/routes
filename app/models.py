@@ -44,7 +44,8 @@ class Service_tickets(Base):
     
 
     customers: Mapped['Customers'] = relationship('Customers', back_populates='service_tickets')
-    mechanics: Mapped[list["Mechanics"]] = relationship('Mechanics', secondary='ticket_mechanics', back_populates='service_tickets')
+    mechanics: Mapped[list['Mechanics']] = relationship('Mechanics', secondary='ticket_mechanics', back_populates='service_tickets')
+    inventorys: Mapped[list['Inventory']]= relationship('Inventory', secondary='part_models', back_populates='service_tickets')
   
 
 
@@ -70,3 +71,26 @@ class Ticket_mechanics(Base):
     ticket_id: Mapped[int] = mapped_column(ForeignKey('service_tickets.id'), nullable=False)
     mechanic_id: Mapped[int] = mapped_column(ForeignKey('mechanics.id'), nullable=False)
 
+
+
+class Inventory(Base):
+    __tablename__ ='inventorys'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[VARCHAR] = mapped_column(VARCHAR(350), nullable=False)
+    price: Mapped[float] = mapped_column(Float(120), nullable=False)
+
+    service_tickets: Mapped[list['Service_tickets']] = relationship('Service_tickets', secondary='part_models', back_populates='inventorys')
+
+
+
+
+
+#assosiation model for descriptions and sevice_tickets
+class Part_Model(Base):
+    __tablename__ = "part_models"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    quantity: Mapped[VARCHAR] = mapped_column(VARCHAR(350), nullable=False)
+    inventory_id: Mapped[VARCHAR] = mapped_column(ForeignKey('inventorys.id'), nullable=False)
+    ticket_id: Mapped[str] = mapped_column(ForeignKey('service_tickets.id'), nullable=True)
