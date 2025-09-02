@@ -3,14 +3,14 @@ from .schemas import mechanic_schema, mechanics_schema, login_schema
 from flask import request, jsonify, render_template
 from marshmallow import ValidationError
 from app.models import Mechanics, db
-from app.extensions import limiter
+from app.extensions import limiter, cache
 from app.utils.util import encode_token, token_required
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
 
 @mechanics_bp.route('/login', methods=['POST'])
-@limiter.limit('5 per 10 min')
+@limiter.limit('5 per 20 min')
 def login():
   try:
     data = login_schema.load(request.json) #send email and pasword
@@ -49,6 +49,7 @@ def create_mechanic():
 
 @mechanics_bp.route('', methods=['GET'])
 @limiter.limit('15 per hour')
+@cache.cached(timeout=60)
 def read_mechanic():
   mechanics = db.session.query(Mechanics).all()
   return mechanics_schema.jsonify(mechanics), 200

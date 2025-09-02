@@ -8,4 +8,4 @@ class MechanicsSchema(ma.SQLAlchemyAutoSchema):
 
 mechanic_schema = MechanicsSchema() 
 mechanics_schema = MechanicsSchema(many=True) #Allows this schema to translate a list of Mechanics objects all at once
-login_schema = MechanicsSchema(exclude=['first_name', 'last_name', 'salary', 'address',])
+login_schema = MechanicsSchema(exclude=['first_name', 'last_name', 'salary', 'address',]) # excluding  fields from the login for auth
