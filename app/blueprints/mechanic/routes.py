@@ -10,7 +10,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 @mechanics_bp.route('/login', methods=['POST'])
-@limiter.limit('5 per 20 min')
 def login():
   try:
     data = login_schema.load(request.json) #send email and pasword
@@ -31,7 +30,7 @@ def login():
 
 #create mechanic
 @mechanics_bp.route('', methods=['POST'])
-@limiter.limit("5 per day")
+# @limiter.limit("5 per day")
 def create_mechanic():
   try:
     data = mechanic_schema.load(request.json)

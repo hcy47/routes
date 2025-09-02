@@ -11,7 +11,7 @@
 			"name": "mechanics",
 			"item": [
 				{
-					"name": "create mechanic",
+					"name": "retrieve mechanic",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -62,40 +62,6 @@
 						"body": {
 							"mode": "raw",
 							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:5000/mechanics",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"mechanics"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "post mechanic",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\"email\":\"hc@email.com\",\n\"first_name\": \"john\",\n\"last_name\": \"yur\",\n\"password\": \"1234\",\n\"salary\": \"120\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -237,7 +203,7 @@
 					"response": []
 				},
 				{
-					"name": "read mech",
+					"name": "add mechanic",
 					"request": {
 						"auth": {
 							"type": "noauth"
