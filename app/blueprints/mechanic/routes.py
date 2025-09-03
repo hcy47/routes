@@ -47,7 +47,7 @@ def create_mechanic():
 
 #read
 @mechanics_bp.route('', methods=['GET'])
-@limiter.limit('15 per hour')
+@limiter.limit('40 per hour')
 @cache.cached(timeout=60)
 def read_mechanic():
   mechanics = db.session.query(Mechanics).all()
@@ -76,7 +76,7 @@ def update_mechanic(mechanic_id):
 
 
 @mechanics_bp.route('', methods=['DELETE'])
-@limiter.limit('5 per day')
+@limiter.limit('50 per day')
 @token_required
 def delete_mechanic():
   token_id = request.mechanic_id # grabbing the token id from the request

@@ -37,14 +37,16 @@ def read_inventorys():
 def update_inventory(inventory_id):
   inventory = db.session.get(Inventory, inventory_id)
   if not inventory:
-    return jsonify({"message": "User not found"}), 404
+    return jsonify({"message": "Inventory not found"}), 404
   
   try:
-    inventory_data = inventorys_schema.load(request.json)
+    inventory_data = inventorys_schema.load(request.json, partial=True)
   except ValidationError as e:
-    return jsonify({"message": "e.messages"}), 400
-  for key, value in inventory_data.item():
+    return jsonify({"message": e.messages}), 400
+  
+  for key, value in inventory_data.items():
     setattr(inventory, key, value)
+    
   db.session.commit()
   return inventorys_schema.jsonify(inventory), 200
 

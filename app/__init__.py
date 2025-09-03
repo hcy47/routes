@@ -4,8 +4,9 @@ from .extensions import ma, limiter, cache
 from .blueprints.customer import customers_bp
 from .blueprints.mechanic import mechanics_bp
 from .blueprints.service_ticket import service_tickets_bp
-from flask_swagger_ui import get_swaggerui_blueprint
 from .blueprints.inventory import inventorys_bp
+from flask_swagger_ui import get_swaggerui_blueprint # need to create a blueprint to plug into our app
+
 
 
 SWAGGER_URL = '/api/docs'
@@ -33,7 +34,7 @@ def create_app(config_name):
     app.register_blueprint(customers_bp, url_prefix='/customers')
     app.register_blueprint(mechanics_bp, url_prefix='/mechanics')
     app.register_blueprint(service_tickets_bp, url_prefix='/service_tickets')
-    app.register_blueprint(swagger_blueprint, url_prefix=SWAGGER_URL)
     app.register_blueprint(inventorys_bp, url_prefix='/inventorys')
+    app.register_blueprint(swagger_blueprint, url_prefix=SWAGGER_URL) # registring my swagger b;lueprint to make it accessible on my app
 
     return app

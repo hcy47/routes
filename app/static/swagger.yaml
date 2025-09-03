@@ -1,10 +1,10 @@
 swagger: '2.0'
 info:
-  title:"Mechanic shop Management API"
+  title: "Mechanic shop Management API"
   description: "Used to Manage Mechanic Shop"
   version: '0.0.1'
 
-host: "127.0.0.1:5000"
+host: "127.0.0.1:5000" # during devrelopment my api is served on my llocal host (will cahnge when we go to production)
 schemes:
   - "http"
 consumes:
@@ -38,10 +38,38 @@ paths: #information about our routes
           examples:
             application/json:
               message: 'Welcome Mechanic'
-              token: '----------'
+              token: 'J9.cPfQxS-OncPf0e7ORYHFItQLt6nJ1k_WXzjbpjQ1AhM'
+
+  /mechanic:
+    post:
+      tags:
+        - Mechanics
+      summary: "Register Mechanic"
+      description: "Send in mechanic info, to create a mechanic  profile that will be stored in the db"
+      paramaters:
+        - in: "body"
+          name: "body"
+          description: "New Mechanic information"
+          required: true
+          schema:
+            $ref: "#/definition/MechanicInput"
+      responses:
+        201:
+          description: :Creation succesfull
+          schema:
+            $ref: "#definitions/MechanicResponse"
+          examples:
+            application/json:
+              email: "test@email.com"
+              password: "123"
+              first_name: "John"
+              last_name: "Doe"
+              salary: "120.000"
+              address: "12 oak str"
+              id: 0
 
 
-definitions: # information about the shape of input and output json
+definitions: # information about the shape of input and output json (Need to be written first)
 
   LoginCredentials: # Input data required for login route
     type: object
@@ -56,9 +84,48 @@ definitions: # information about the shape of input and output json
       - password
 
   LoginResponse: # Response from /login ENDpoint
+
     type: object
     properties:
       message:
         type: string
       token:
+        type: string
+
+  userInput:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      salary:
+        type: float
+
+
+    required:
+      - email
+      - first_name
+      - last_name
+      - password
+      - salary
+    
+  userResponse:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      salary:
+        type: float
+      address:
         type: string
