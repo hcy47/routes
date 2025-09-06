@@ -52,22 +52,13 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTYzNDcyOTMsImlhdCI6MTc1NjM0MzY5Mywic3ViIjoiMyJ9.cPfQxS-OncPf0e7ORYHFItQLt6nJ1k_WXzjbpjQ1AhM",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTY5NTU0ODQsImlhdCI6MTc1Njk1MTg4NCwic3ViIjoiNCJ9.eV-QKzbQYSK-DtP3bpyv4akGOzT7cFzKLMAa2slgo6w",
 									"type": "string"
 								}
 							]
 						},
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://127.0.0.1:5000/mechanics",
 							"protocol": "http",
@@ -103,15 +94,6 @@
 						},
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://127.0.0.1:5000/mechanics/3",
 							"protocol": "http",
@@ -140,7 +122,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"hc@email.com\",\n    \"password\": \"1234\"\n}",
+							"raw": "{\n    \"email\":\"sum@email.com\",\n    \"password\": \"1243\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -148,7 +130,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/mechanic/login",
+							"raw": "http://127.0.0.1:5000/mechanics/login",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -158,7 +140,7 @@
 							],
 							"port": "5000",
 							"path": [
-								"mechanic",
+								"mechanics",
 								"login"
 							]
 						}
@@ -272,16 +254,16 @@
 					"response": []
 				},
 				{
-					"name": "delete req",
+					"name": "New Request",
 					"request": {
 						"auth": {
 							"type": "noauth"
 						},
-						"method": "DELETE",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \n    \"email\": \"sum@email.com\",\n    \"first_name\": \"yum\",\n    \"last_name\": \"reco\",\n    \"password\": \"1243\",\n    \"salary\": \"120\"\n    \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -289,7 +271,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/mechanics/2",
+							"raw": "http://127.0.0.1:5000/mechanics",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -299,8 +281,7 @@
 							],
 							"port": "5000",
 							"path": [
-								"mechanics",
-								"2"
+								"mechanics"
 							]
 						}
 					},
@@ -311,43 +292,6 @@
 		{
 			"name": "service_tickets",
 			"item": [
-				{
-					"name": "service tickets read",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:5000/service_tickets",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"service_tickets"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "ST_create",
 					"request": {
@@ -445,7 +389,7 @@
 					"response": []
 				},
 				{
-					"name": "add to Inventory",
+					"name": "add part 2 to Inventory",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -474,7 +418,7 @@
 					"response": []
 				},
 				{
-					"name": "add inventory-2",
+					"name": "add part 2 to inventory",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -506,6 +450,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "assign mech to servTick",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -522,7 +474,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"jean@email.com\",\n    \"first_name\": \"jean\",\n    \"last_name\": \"fun\",\n    \"phone\":\"4243721234\"\n}",
+							"raw": "{\n    \"first_name\": \"jean\",\n    \"last_name\": \"funner\",\n    \"email\": \"jeanfun@email.com\",\n    \"phone\":\"4243721234\",\n    \"address\": \"1 nile str\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -584,7 +536,7 @@
 					"response": []
 				},
 				{
-					"name": "http://127.0.0.1:5000/mechanics/most_ticket",
+					"name": "read individual cust",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -596,7 +548,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -604,7 +556,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/mechanics/most_ticket",
+							"raw": "http://127.0.0.1:5000/customers/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -614,8 +566,66 @@
 							],
 							"port": "5000",
 							"path": [
-								"mechanics",
-								"most_ticket"
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"12 sun str\",\n    \"email\": \"susan@email.com\",\n    \"first_name\": \"sue\",\n    \"last_name\": \"san\",\n    \"phone\": \"7473721234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								"1"
 							]
 						}
 					},
@@ -701,7 +711,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -720,6 +730,69 @@
 							"port": "5000",
 							"path": [
 								"inventorys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ICM\",\n    \"price\": \"150\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/inventorys",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"inventorys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleted1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/inventorys/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"inventorys",
+								"1"
 							]
 						}
 					},
@@ -732,7 +805,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"name\": \"updated coils\",\n    \"price\": \"120\"\n}",
+							"raw": "{\n    \"name\": \"Acoil\",\n    \"price\": \"140\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -740,7 +813,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/inventorys",
+							"raw": "http://127.0.0.1:5000/inventorys/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -750,44 +823,46 @@
 							],
 							"port": "5000",
 							"path": [
-								"inventorys"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:5000/inventorys",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"inventorys"
+								"inventorys",
+								"2"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTY5NTU0ODQsImlhdCI6MTc1Njk1MTg4NCwic3ViIjoiNCJ9.eV-QKzbQYSK-DtP3bpyv4akGOzT7cFzKLMAa2slgo6w",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

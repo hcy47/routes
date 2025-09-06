@@ -40,7 +40,7 @@ def update_inventory(inventory_id):
     return jsonify({"message": "Inventory not found"}), 404
   
   try:
-    inventory_data = inventorys_schema.load(request.json, partial=True)
+    inventory_data = inventory_schema.load(request.json)
   except ValidationError as e:
     return jsonify({"message": e.messages}), 400
   
@@ -48,7 +48,9 @@ def update_inventory(inventory_id):
     setattr(inventory, key, value)
     
   db.session.commit()
-  return inventorys_schema.jsonify(inventory), 200
+  return inventory_schema.jsonify(inventory), 200
+
+
 
 
 

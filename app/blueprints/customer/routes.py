@@ -44,10 +44,14 @@ def read_customer(customer_id):
 
 
 #delete A Customer
-@customers_bp.route('<int:customer_id>', methods=['DELETE'])
+@customers_bp.route('/<int:customer_id>', methods=['DELETE'])
 @limiter.limit('300 per day')
 def delete_customer(customer_id):
   customer = db.session.get(Customers, customer_id)
+
+  if not customer:
+    return jsonify({'message': f"Customer with id {customer_id} not found"}), 404
+  
   db.session.delete(customer)
   db.session.commit()
   return jsonify({'message': f"Succesfully deleted{customer_id}"}), 200
@@ -66,7 +70,7 @@ def update_customer(customer_id):
     customer_data = customer_schema.load(request.json) # validating updates
   except ValidationError as e:
     return jsonify({'message': e.messages}), 400
-  for key, value in customer_data.item(): # looping over atrributes and values from customers data dictionary
+  for key, value in customer_data.items(): # looping over atrributes and values from customers data dictionary
     setattr(customer, key, value) # setting Object Attribute Value to replace
   db.session.commit()
   return customer_schema.jsonify(customer), 200

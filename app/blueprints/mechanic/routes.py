@@ -87,6 +87,8 @@ def delete_mechanic():
   return jsonify({'message': f'Succesfully deleted{token_id}'}), 200
 
 
+
+
 @mechanics_bp.route("/most_ticket", methods=['GET'])
 def get_ticket_mechanics():
   mechanics = db. session.query(Mechanics).all() #grabbing all mechanics
